@@ -1,13 +1,8 @@
 using DG.Tweening;
-using UnityEngine;
 using UnityEngine.UI;
 
-public class TextChanger : MonoBehaviour
+public class TextChanger : Changer<string>
 {
-    [SerializeField] private float _duration;
-    [SerializeField] private int _from;
-    [SerializeField] private int _to;
-
     private Text _text;
 
     private void Awake()
@@ -15,8 +10,13 @@ public class TextChanger : MonoBehaviour
         _text = GetComponent<Text>();
     }
 
-    private void Start()
+    protected override void Animate()
     {
-        _text.DOCounter(_from, _to, _duration).SetLoops(-1);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_text.DOText(EndValue, Duration));
+        sequence.Append(_text.DOText(string.Empty, Duration));
+        sequence.Append(_text.DOText(EndValue + EndValue, Duration));
+        sequence.Append(_text.DOText(EndValue, Duration, scrambleMode: ScrambleMode.Numerals));
+        sequence.SetLoops(InfinityLoopValue, LoopType.Yoyo);
     }
 }

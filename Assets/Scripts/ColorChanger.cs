@@ -2,11 +2,8 @@ using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
-public class ColorChanger : MonoBehaviour
+public class ColorChanger : Changer<Color>
 {
-    [SerializeField] private float _duration;
-    [SerializeField] private Color _endColor;
-
     private MeshRenderer _meshRenderer;
 
     private void Awake()
@@ -14,8 +11,8 @@ public class ColorChanger : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    private void Start()
+    protected override void Animate()
     {
-        _meshRenderer.material.DOColor(_endColor, _duration).SetLoops(-1, LoopType.Yoyo);
+        _meshRenderer.material.DOColor(EndValue, Duration).SetLoops(InfinityLoopValue, LoopType.Yoyo);
     }
 }

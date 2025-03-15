@@ -1,13 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class Mover : Changer<Vector3>
 {
-    [SerializeField] private float _duration;
-    [SerializeField] private Vector3 _endPosition;
-
-    private void Start()
+    protected override void Animate()
     {
-        transform.DOMove(_endPosition, _duration).SetLoops(-1, LoopType.Yoyo);
+        transform.DOMove(EndValue, Duration).SetLoops(InfinityLoopValue, LoopType.Yoyo);
     }
 }

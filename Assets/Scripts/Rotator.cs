@@ -1,13 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Rotator : MonoBehaviour
+public class Rotator : Changer<Vector3>
 {
-    [SerializeField] private float _duration;
-    [SerializeField] private Vector3 _rotation;
-
-    private void Start()
+    protected override void Animate()
     {
-        transform.DORotate(_rotation, _duration).SetLoops(-1);
+        transform.DORotate(EndValue, Duration).SetLoops(InfinityLoopValue);
     }
 }

@@ -1,14 +1,11 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Scaler : MonoBehaviour
+public class Scaler : Changer<Vector3>
 {
-    [SerializeField] private float _duration;
-    [SerializeField] private Vector3 _endScale;
-
-    private void Start()
+    protected override void Animate()
     {
-        transform.DOScale(_endScale, _duration).SetLoops(-1, LoopType.Yoyo);
+        transform.DOScale(EndValue, Duration).SetLoops(InfinityLoopValue, LoopType.Yoyo);
     }
 }
 
